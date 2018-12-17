@@ -187,6 +187,10 @@ func newUpgradeCmd(client helm.Interface, out io.Writer) *cobra.Command {
 
 func (u *upgradeCmd) run() error {
 	chartPath, err := locateChartPath(u.repoURL, u.username, u.password, u.chart, u.version, u.verify, u.keyring, u.certFile, u.keyFile, u.caFile)
+	if err != nil && u.fallbackDevel {
+		u.version = ">0.0.0-0"
+		chartPath, err := locateChartPath(u.repoURL, u.username, u.password, u.chart, u.version, u.verify, u.keyring, u.certFile, u.keyFile, u.caFile)
+	}
 	if err != nil {
 		return err
 	}

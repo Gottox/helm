@@ -185,6 +185,12 @@ func newInstallCmd(c helm.Interface, out io.Writer) *cobra.Command {
 
 			cp, err := locateChartPath(inst.repoURL, inst.username, inst.password, args[0], inst.version, inst.verify, inst.keyring,
 				inst.certFile, inst.keyFile, inst.caFile)
+			if err != nil && inst.fallbackDevel {
+				inst.version = ">0.0.0-0"
+				cp, err := locateChartPath(inst.repoURL, inst.username, inst.password, args[0], inst.version, inst.verify, inst.keyring,
+					inst.certFile, inst.keyFile, inst.caFile)
+			}
+
 			if err != nil {
 				return err
 			}

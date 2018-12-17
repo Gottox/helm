@@ -84,32 +84,33 @@ which results in "pwd: 3jk$o2z=f\30with'quote".
 `
 
 type upgradeCmd struct {
-	release      string
-	chart        string
-	out          io.Writer
-	client       helm.Interface
-	dryRun       bool
-	recreate     bool
-	force        bool
-	disableHooks bool
-	valueFiles   valueFiles
-	values       []string
-	stringValues []string
-	fileValues   []string
-	verify       bool
-	keyring      string
-	install      bool
-	namespace    string
-	version      string
-	timeout      int64
-	resetValues  bool
-	reuseValues  bool
-	wait         bool
-	repoURL      string
-	username     string
-	password     string
-	devel        bool
-	description  string
+	release       string
+	chart         string
+	out           io.Writer
+	client        helm.Interface
+	dryRun        bool
+	recreate      bool
+	force         bool
+	disableHooks  bool
+	valueFiles    valueFiles
+	values        []string
+	stringValues  []string
+	fileValues    []string
+	verify        bool
+	keyring       string
+	install       bool
+	namespace     string
+	version       string
+	timeout       int64
+	resetValues   bool
+	reuseValues   bool
+	wait          bool
+	repoURL       string
+	username      string
+	password      string
+	devel         bool
+        fallbackDevel bool
+	description   string
 
 	certFile string
 	keyFile  string
@@ -173,6 +174,7 @@ func newUpgradeCmd(client helm.Interface, out io.Writer) *cobra.Command {
 	f.StringVar(&upgrade.keyFile, "key-file", "", "identify HTTPS client using this SSL key file")
 	f.StringVar(&upgrade.caFile, "ca-file", "", "verify certificates of HTTPS-enabled servers using this CA bundle")
 	f.BoolVar(&upgrade.devel, "devel", false, "use development versions, too. Equivalent to version '>0.0.0-0'. If --version is set, this is ignored.")
+	f.BoolVar(&upgrade.fallbackDevel, "fallback-devel", false, "use development versions if no stable can be found. If --version is set, this is ignored.")
 	f.StringVar(&upgrade.description, "description", "", "specify the description to use for the upgrade, rather than the default")
 
 	f.MarkDeprecated("disable-hooks", "use --no-hooks instead")

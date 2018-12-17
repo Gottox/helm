@@ -64,6 +64,7 @@ type fetchCmd struct {
 	caFile   string
 
 	devel bool
+	fallbackDevel bool
 
 	out io.Writer
 }
@@ -108,6 +109,7 @@ func newFetchCmd(out io.Writer) *cobra.Command {
 	f.StringVar(&fch.keyFile, "key-file", "", "identify HTTPS client using this SSL key file")
 	f.StringVar(&fch.caFile, "ca-file", "", "verify certificates of HTTPS-enabled servers using this CA bundle")
 	f.BoolVar(&fch.devel, "devel", false, "use development versions, too. Equivalent to version '>0.0.0-0'. If --version is set, this is ignored.")
+	f.BoolVar(&inst.fallbackDevel, "fallback-devel", false, "use development versions if no stable can be found. If --version is set, this is ignored.")
 	f.StringVar(&fch.username, "username", "", "chart repository username")
 	f.StringVar(&fch.password, "password", "", "chart repository password")
 
